@@ -23,18 +23,6 @@ jobs:
     - name: Install dependencies
       run: make dist 
 
-steps:
-    - uses: actions/checkout@v1
-
-    - name: Bootstrap
-      run: ./bootstrap.sh
-
-    - name: Configure
-      run: ./configure
-
-    - name: Make dist
-      run: make dist
-
     - name: Upload dist to Release
       uses: svenstaro/upload-release-action@2
       with:
