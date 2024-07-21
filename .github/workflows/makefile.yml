@@ -23,8 +23,22 @@ jobs:
     - name: Install dependencies
       run: make dist 
 
-    - name: Run check
-      run: make check
+steps:
+    - uses: actions/checkout@v1
 
-    - name: Run distcheck
-      run: make distcheck
+    - name: Bootstrap
+      run: ./bootstrap.sh
+
+    - name: Configure
+      run: ./configure
+
+    - name: Make dist
+      run: make dist
+
+    - name: Upload dist to Release
+      uses: svenstaro/upload-release-action@2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: obstack-*.tar.gz
+        tag: ${{ github.ref }}
+        file_glob: true
